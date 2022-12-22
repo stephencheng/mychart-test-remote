@@ -1,0 +1,24 @@
+# templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{.Values.namespace}}
+  labels:
+    app: {{ .Chart.Name }}
+    cmkey1: {{.Values.cmkey1}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: nginx:latest
+          ports:
+            - containerPort: 80
